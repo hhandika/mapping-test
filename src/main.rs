@@ -1,11 +1,11 @@
 use minimap2::Aligner;
 
 fn main() {
-    let mut aligner = Aligner::builder()
-        .map_ont()
-        .qith_seq(seq.as_bytes())
-        .build()
-        .unwrap();
-    let hits = aligner.map(query, None);
-    assert!(hits.len() > 0);
+    let seq = b"AAGGTTCCAA";
+    let aligner = Aligner::builder().map_ont().with_seq(seq).unwrap();
+    let query = b"GGTT";
+    let hits = aligner.map(query, false, false, None, None).unwrap();
+    for hit in hits {
+        println!("hit: {:?}", hit);
+    }
 }
